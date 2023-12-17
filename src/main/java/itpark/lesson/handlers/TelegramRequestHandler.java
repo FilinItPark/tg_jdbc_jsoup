@@ -30,13 +30,17 @@ public class TelegramRequestHandler extends TelegramLongPollingBot {
                 // cmd: /parse <PAGE> <COUNT_ADVERTISEMENETS>
                 if (text.startsWith("/parse")) {
                     String[] args = text.split(" ");
-                    Integer page = Integer.parseInt(args[0]);
-                    Integer countAdvertisements = Integer.valueOf(args[1]);
+                    Integer page = Integer.parseInt(args[1]);
+                    Integer countAdvertisements = Integer.valueOf(args[2]);
 
                     List<Advertisement> advertisements = cianParser.parse(page, countAdvertisements);
                     advertisementService.saveAll(advertisements);
                 } else if (text.startsWith("/get")) {
-                    advertisementService.getAll();
+                    List<Advertisement> all = advertisementService.getAll();
+
+                    for (Advertisement advertisement : all) {
+                        sendMessage(advertisement.toString(), chatId);
+                    }
                 }
             }
         }

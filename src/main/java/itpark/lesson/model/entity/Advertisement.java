@@ -1,16 +1,12 @@
 package itpark.lesson.model.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 /**
  * @author 1ommy
  * @version 17.12.2023
  */
 
-@AllArgsConstructor
 @Builder
 public record Advertisement(
         Long id,
@@ -24,6 +20,6 @@ public record Advertisement(
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s, %s, %s, %s",  title, description, metroStation, uri, region, price);
+        return String.format("'%s', '%s', '%s', '%s', '%s', '%s'",  title, description, metroStation, uri, region, price);
     }
 }

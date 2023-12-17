@@ -1,6 +1,7 @@
 package itpark.lesson.model.repository;
 
 import itpark.lesson.model.entity.Advertisement;
+import lombok.extern.slf4j.Slf4j;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,6 +14,7 @@ import java.util.List;
  * @author 1ommy
  * @version 17.12.2023
  */
+@Slf4j
 public class AdvertisementRepository {
     private Connection connection;
 
@@ -47,16 +49,19 @@ public class AdvertisementRepository {
         try {
             Statement statement = connection.createStatement();
             StringBuilder sql = new StringBuilder();
-            sql.append("insert into advertisement (title, description, metro_station, uri, region, price) values ");
+            sql.append("insert into advertisement (title, description, metrostation, uri, region, price) values ");
 
             for (var advertisement : advertisements) {
-                sql.append("(");
+                sql.append(" (");
                 sql.append(advertisement.toString());
                 sql.append("),");
             }
             sql.deleteCharAt(sql.length() - 1);
+            log.info(sql.toString());
 
-            if (!statement.execute(sql.toString())) {
+            String string = sql.toString().replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+
+            if (!statement.execute(string)) {
                 System.out.println("чет пошло не так");
             }
 

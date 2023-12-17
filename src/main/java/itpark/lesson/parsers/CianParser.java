@@ -42,14 +42,17 @@ public class CianParser {
                 if (ad.child(0).tagName().equalsIgnoreCase("article")) {
                     var item = ads.get(i).child(0).child(0).child(1).child(0).child(0);
 
-                    var adLink = getHref(item);
-                    var advertiserName = getAdvertiserName(item);
+                    var adLink = getHref(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+                    var advertiserName =
+                            getAdvertiserName(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
                     var phoneNumber = "N/A";
-                    var subway = getSubway(item);
-                    var address = getAdAddress(item);
-                    var apartmentArea = getApartmentArea(item);
-                    var price = getPrice(item);
-                    var description = getDescription(item);
+                    var subway = getSubway(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+                    var address = getAdAddress(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+                    var apartmentArea = getApartmentArea(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+                    var price = getPrice(item).replaceAll("[«»]", "").replaceAll("\"", "").replaceAll("\n", "");
+                    var description = getDescription(item).replaceAll("[«»]", "")
+                            .replaceAll("\n", "").replaceAll("\"", "");
+                    ;
 
                     Advertisement advertisement = Advertisement.builder().metroStation(subway).price(price).uri(adLink).description(description).title(advertiserName).region(address).build();
 

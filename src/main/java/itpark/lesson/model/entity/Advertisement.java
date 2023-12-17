@@ -1,14 +1,16 @@
 package itpark.lesson.model.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author 1ommy
  * @version 17.12.2023
  */
 
-@Data
+@AllArgsConstructor
 @Builder
 public record Advertisement(
         Long id,

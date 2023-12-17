@@ -9,6 +9,10 @@ import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
  * @version 17.12.2023
  */
 public class Main {
+
+    /*
+        он вводит колво страниц и колво объявлений,которые он хочет найти
+     */
     public static void main(String[] args) {
         try {
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);

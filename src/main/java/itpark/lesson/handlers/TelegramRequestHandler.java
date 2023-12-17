@@ -2,6 +2,7 @@ package itpark.lesson.handlers;
 
 import itpark.lesson.model.entity.Advertisement;
 import itpark.lesson.parsers.CianParser;
+import itpark.lesson.service.AdvertisementService;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -15,6 +16,7 @@ import java.util.List;
  */
 public class TelegramRequestHandler extends TelegramLongPollingBot {
     private final CianParser cianParser = new CianParser();
+    private final AdvertisementService advertisementService = new AdvertisementService();
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -31,7 +33,10 @@ public class TelegramRequestHandler extends TelegramLongPollingBot {
                     Integer page = Integer.parseInt(args[0]);
                     Integer countAdvertisements = Integer.valueOf(args[1]);
 
-                   List<Advertisement> advertisements = cianParser.parse(page, countAdvertisements);
+                    List<Advertisement> advertisements = cianParser.parse(page, countAdvertisements);
+                    advertisementService.saveAll(advertisements);
+                } else if (text.startsWith("/get")) {
+                    advertisementService.getAll();
                 }
             }
         }

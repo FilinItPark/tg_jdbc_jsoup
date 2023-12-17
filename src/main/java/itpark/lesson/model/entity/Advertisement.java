@@ -19,4 +19,9 @@ public record Advertisement(
         String region,
         String price
 ) {
+
+    @Override
+    public String toString() {
+        return String.format("%s, %s, %s, %s, %s, %s",  title, description, metroStation, uri, region, price);
+    }
 }

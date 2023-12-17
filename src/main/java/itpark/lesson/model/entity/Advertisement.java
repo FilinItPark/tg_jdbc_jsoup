@@ -11,6 +11,7 @@ import lombok.Data;
 @Data
 @Builder
 public record Advertisement(
+        Long id,
         String title,
         String description,
         String metroStation,

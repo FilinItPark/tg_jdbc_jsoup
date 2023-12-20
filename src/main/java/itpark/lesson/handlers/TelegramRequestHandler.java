@@ -1,8 +1,11 @@
 package itpark.lesson.handlers;
 
 import itpark.lesson.model.entity.Advertisement;
+import itpark.lesson.model.entity.WeatherEntity;
 import itpark.lesson.parsers.CianParser;
+import itpark.lesson.parsers.WeatherParser;
 import itpark.lesson.service.AdvertisementService;
+import lombok.SneakyThrows;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -18,6 +21,7 @@ public class TelegramRequestHandler extends TelegramLongPollingBot {
     private final CianParser cianParser = new CianParser();
     private final AdvertisementService advertisementService = new AdvertisementService();
 
+    @SneakyThrows
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage()) {
@@ -39,8 +43,14 @@ public class TelegramRequestHandler extends TelegramLongPollingBot {
                     List<Advertisement> all = advertisementService.getAll();
 
                     for (Advertisement advertisement : all) {
-                        sendMessage(advertisement.toString(), chatId);
+                        sendMessage(advertisement.getFormattedAdvertisementInfo(), chatId);
                     }
+                } else if (text.startsWith("/weather")) {
+                    String[] args = text.split(" ");
+                    String city = args[1];
+
+                    WeatherEntity weatherEntity = new WeatherParser().getWeatherInTheCity(city);
+                    sendMessage(weatherEntity.toString(), chatId);
                 }
             }
         }

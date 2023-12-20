@@ -22,4 +22,17 @@ public record Advertisement(
     public String toString() {
         return String.format("'%s', '%s', '%s', '%s', '%s', '%s'",  title, description, metroStation, uri, region, price);
     }
+
+    public String getFormattedAdvertisementInfo() {
+        return String.format("""
+                Объявление '%s'!
+                
+                Город: %s
+                Описание объявления: %s.
+                Метро: %s.
+                Ссылка на объявление: %s
+                
+                Стоимость: %s
+                """, title, region, description, metroStation, uri, price);
+    }
 }

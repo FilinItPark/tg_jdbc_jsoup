@@ -42,6 +42,11 @@ public class WeatherParser {
                 .baseDescription(
                         jsonObject.getAsJsonArray("weather").get(0).getAsJsonObject().get("description").getAsString()
                 )
+                .city(jsonObject.get("name").getAsString())
+                .temperature(jsonObject.get("main").getAsJsonObject().get("temp").getAsString())
+                .temperateFeelsLike(jsonObject.get("main").getAsJsonObject().get("feels_like").getAsString())
+                .tempMax(jsonObject.get("main").getAsJsonObject().get("temp_max").getAsString())
+                .tempMin(jsonObject.get("main").getAsJsonObject().get("temp_min").getAsString())
                 .build();
         return weatherEntity;
     }
